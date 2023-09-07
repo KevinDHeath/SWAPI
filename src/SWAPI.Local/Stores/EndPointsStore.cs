@@ -4,9 +4,12 @@ namespace SWAPI.Local.Stores;
 
 internal class EndPointsStore : BaseStorage
 {
+	private static EndPoints? _endPoints;
+	private static readonly object _endPointsLock = new();
+	private static bool _endPointsLoad = false;
+
 	#region Internal Properties
 
-	private static EndPoints? _endPoints;
 	internal static EndPoints EndPoints
 	{
 		get => _endPoints is null ? new EndPoints() : _endPoints;
@@ -17,20 +20,34 @@ internal class EndPointsStore : BaseStorage
 
 	#region Internal Methods
 
-	internal static void Initialize( IWebHostEnvironment environment, HttpRequest request )
+	internal static void Initialize( HttpRequest request )
 	{
 		if( _endPoints is not null ) { return; }
-
-		string rootUrl = GetResourceUrl( request ) + "/";
-		_endPoints = new EndPoints
+		try
 		{
-			Films = rootUrl + EndPoints.cFilms,
-			People = rootUrl + EndPoints.cPeople,
-			Planets = rootUrl + EndPoints.cPlanets,
-			Species = rootUrl + EndPoints.cSpecies,
-			Starships = rootUrl + EndPoints.cStarships,
-			Vehicles = rootUrl + EndPoints.cVehicles
-		};
+			string rootUrl = GetResourceUrl( request ) + cSep;
+
+			// Load endpoints data
+			Monitor.Enter( _endPointsLock, ref _endPointsLoad );
+			_endPoints = new EndPoints
+			{
+				Films = rootUrl + EndPoints.cFilms,
+				People = rootUrl + EndPoints.cPeople,
+				Planets = rootUrl + EndPoints.cPlanets,
+				Species = rootUrl + EndPoints.cSpecies,
+				Starships = rootUrl + EndPoints.cStarships,
+				Vehicles = rootUrl + EndPoints.cVehicles
+			};
+		}
+		catch( Exception ) { }
+		finally
+		{
+			if( _endPointsLoad )
+			{
+				Monitor.Exit( _endPointsLock );
+				_endPointsLoad = false;
+			}
+		}
 		return;
 	}
 

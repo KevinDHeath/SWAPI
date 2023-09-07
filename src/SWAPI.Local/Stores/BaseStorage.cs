@@ -4,8 +4,16 @@ namespace SWAPI.Local.Stores;
 
 internal abstract class BaseStorage
 {
+	protected const char cSep = '/';
+	private const int cPageSize = 10;
+
 	private static string? _iisPath;
+	private static readonly object _iisPathLock = new();
+	private static bool _iisPathLoad = false;
+
 	private static string? _rootUrl;
+	private static readonly object _rootUrlLock = new();
+	private static bool _rootUrlLoad = false;
 
 	#region Protected Methods
 
@@ -15,15 +23,24 @@ internal abstract class BaseStorage
 	protected static string GetIISPath( IWebHostEnvironment environment )
 	{
 		if( _iisPath is not null ) { return _iisPath; }
-
-		var path = environment.ContentRootPath;
 		try
 		{
+			// Store the data path
+			Monitor.Enter( _iisPathLock, ref _iisPathLoad );
+			var path = environment.ContentRootPath;
 			_iisPath = Path.Combine( path, @"App_Data" );
 			return _iisPath;
 		}
 		catch( Exception ) { }
-		return string.Empty;
+		finally
+		{
+			if( _iisPathLoad )
+			{
+				Monitor.Exit( _iisPathLock );
+				_iisPathLoad = false;
+			}
+		}
+		return _iisPath is not null ? _iisPath : string.Empty;
 	}
 
 	/// <summary>Gets the API URL from a resource URL.</summary>
@@ -32,32 +49,51 @@ internal abstract class BaseStorage
 	protected static string GetRootUrl( string url )
 	{
 		if( _rootUrl is not null ) { return _rootUrl; }
+		try
+		{
+			// Store the root URL
+			Monitor.Enter( _rootUrlLock, ref _rootUrlLoad );
+			_rootUrl = url.LastIndexOf( cSep ) > 0 ? url[..url.LastIndexOf( cSep )] : url;
+			if( !_rootUrl.EndsWith( cSep ) ) { _rootUrl += cSep; }
+		}
+		catch( Exception ) { }
+		finally
+		{
+			if( _rootUrlLoad )
+			{
+				Monitor.Exit( _rootUrlLock );
+				_rootUrlLoad = false;
+			}
+		}
 
-		_rootUrl = url.LastIndexOf( '/' ) > 0 ? url[..url.LastIndexOf( '/' )] : url;
-		if( !_rootUrl.EndsWith( '/' ) ) { _rootUrl += '/'; }
-		return _rootUrl;
+		return _rootUrl is not null ? _rootUrl : string.Empty;
 	}
 
 	/// <summary>Gets the resource URL from a HTTP request.</summary>
 	/// <param name="request">The HTTP request.</param>
-	/// <returns>The URL of the resource.</returns>
-	protected static string GetResourceUrl( HttpRequest request )
+	/// <returns>An empty string is returned if the URL could not be determined.</returns>
+	protected static string GetResourceUrl( HttpRequest? request )
 	{
-		// Remove specific item in URL
-		string path = request.Path;
-		if( path.EndsWith( '/' ) ) { path = path[..^1]; }
-		int index = path.LastIndexOf( '/' );
-		if( int.TryParse( path.AsSpan( index + 1, path.Length - index - 1 ), out _ ) ) { path = path[..index]; }
+		if( request is not null )
+		{
+			// Remove specific item in URL
+			string path = request.Path;
+			if( path.EndsWith( cSep ) ) { path = path[..^1]; }
+			int index = path.LastIndexOf( cSep );
+			if( int.TryParse( path.AsSpan( index + 1, path.Length - index - 1 ), out _ ) )
+			{ path = path[..index]; }
 
-		return $"{request.Scheme}://{request.Host}{request.PathBase}{path}";
+			return $"{request.Scheme}://{request.Host}{request.PathBase}{path}";
+		}
+		return string.Empty;
 	}
 
 	protected static int? GetItemKey( string? path )
 	{
 		if( !string.IsNullOrWhiteSpace( path ) )
 		{
-			if( path.EndsWith( '/' ) ) { path = path[..^1]; }
-			int index = path.LastIndexOf( '/' );
+			if( path.EndsWith( cSep ) ) { path = path[..^1]; }
+			int index = path.LastIndexOf( cSep );
 			if( int.TryParse( path.AsSpan( index + 1, path.Length - index - 1 ), out int key ) )
 			{
 				return key;
@@ -71,13 +107,18 @@ internal abstract class BaseStorage
 		if( list is null ) { return; }
 		for( int index = 0; index < list.Count; index++ )
 		{
-			if( list[index] is not null ) { list[index] = prefix + list[index]; }
+			list[index] = SetUrlPrefix( prefix, list[index] );
 		}
 	}
 
-	#endregion
+	protected static string SetUrlPrefix( string prefix, string? val )
+	{
+		if( string.IsNullOrWhiteSpace( val ) ) { return string.Empty; }
+		if( val.ToLowerInvariant().StartsWith( Uri.UriSchemeHttp ) ) { return val; }
+		return prefix + val;
+	}
 
-	private const int cPageSize = 10;
+	#endregion
 
 	#region Internal Methods
 

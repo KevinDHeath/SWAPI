@@ -10,14 +10,9 @@ namespace SWAPI.Local.Controllers;
 [Produces( "application/json" )]
 public class EndPointsController : ControllerBase
 {
-	private readonly IWebHostEnvironment _env;
-
 	/// <summary>Initializes a new instance of the EndPointsController class.</summary>
-	/// <param name="environment">The application's configured IWebHostEnvironment.</param>
-	public EndPointsController( IWebHostEnvironment environment )
-	{
-		_env = environment;
-	}
+	public EndPointsController()
+	{ }
 
 	/// <summary>Provides information on all available resources within the API.</summary>
 	/// <returns>The film details.</returns>
@@ -25,7 +20,7 @@ public class EndPointsController : ControllerBase
 	[ProducesResponseType( StatusCodes.Status200OK )]
 	public ActionResult<EndPoints> Get()
 	{
-		EndPointsStore.Initialize( _env, ControllerContext.HttpContext.Request );
+		EndPointsStore.Initialize( ControllerContext.HttpContext.Request );
 		return (ActionResult<EndPoints>)Ok( EndPointsStore.EndPoints );
 	}
 }
