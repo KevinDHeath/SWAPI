@@ -62,5 +62,5 @@ public class Film : BaseModel
 	{ }
 
 	/// <inheritdoc/>
-	protected override string ResourcePath => "films/";
+	protected override string ResourcePath => EndPoints.cFilms;
 }

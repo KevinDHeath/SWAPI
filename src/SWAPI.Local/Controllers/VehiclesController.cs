@@ -21,6 +21,7 @@ public class VehiclesController : ControllerBase
 	/// <summary>Gets a collection of vehicles.</summary>
 	/// <param name="page">Page number.</param>
 	/// <param name="search">Search pattern.</param>
+	/// <returns>A collection of vehicle details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( typeof( Collection<Vehicle> ), StatusCodes.Status200OK )]
 	public ActionResult<Collection<Vehicle>> Get( [FromQuery] int? page, [FromQuery] string? search )

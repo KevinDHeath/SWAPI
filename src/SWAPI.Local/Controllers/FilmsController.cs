@@ -22,6 +22,7 @@ public class FilmsController : ControllerBase
 	/// <summary>Gets a collection of films.</summary>
 	/// <param name="page">Page number.</param>
 	/// <param name="search">Search pattern.</param>
+	/// <returns>A collection of film details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( typeof( Collection<Film> ), StatusCodes.Status200OK )]
 	public ActionResult<Collection<Film>> Get( [FromQuery] int? page, [FromQuery] string? search )

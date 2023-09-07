@@ -76,5 +76,5 @@ public class Person : BaseModel
 	{ }
 
 	/// <summary>Gets the path for extending the base URL.</summary>
-	protected override string ResourcePath => "people/";
+	protected override string ResourcePath => EndPoints.cPeople;
 }

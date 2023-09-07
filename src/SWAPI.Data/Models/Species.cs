@@ -69,5 +69,5 @@ public class Species : BaseModel
 	{ }
 
 	/// <summary>Gets the path for extending the base URL.</summary>
-	protected override string ResourcePath => "species/";
+	protected override string ResourcePath => EndPoints.cSpecies;
 }

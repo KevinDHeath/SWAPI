@@ -6,7 +6,7 @@ using SWAPI.Local.Stores;
 
 namespace SWAPI.Local.Controllers;
 
-/// <summary>Defines the available actions for star-ships.</summary>
+/// <summary>Defines the available actions for starships.</summary>
 [Route( @"api/starships" )]
 [ApiController]
 [Produces( "application/json" )]
@@ -21,9 +21,10 @@ public class StarshipsController : ControllerBase
 		_env = environment;
 	}
 
-	/// <summary>Gets a collection of star-ships.</summary>
+	/// <summary>Gets a collection of starships.</summary>
 	/// <param name="page">Page number.</param>
 	/// <param name="search">Search pattern.</param>
+	/// <returns>A collection of starship details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( typeof( Collection<Starship> ), StatusCodes.Status200OK )]
 	public ActionResult<Collection<Starship>> Get( [FromQuery] int? page, [FromQuery] string? search )
@@ -32,9 +33,9 @@ public class StarshipsController : ControllerBase
 		return Ok( BuildCollection( page, search ) );
 	}
 
-	/// <summary>Gets a specific star-ship.</summary>
-	/// <param name="id">The star-ship Id.</param>
-	/// <returns>The star-ship details.</returns>
+	/// <summary>Gets a specific starship.</summary>
+	/// <param name="id">The starship Id.</param>
+	/// <returns>The starship details.</returns>
 	/// <response code="404">Not Found, an empty object will be returned.</response>
 	[HttpGet( "{id}" )]
 	[ProducesResponseType( StatusCodes.Status200OK )]

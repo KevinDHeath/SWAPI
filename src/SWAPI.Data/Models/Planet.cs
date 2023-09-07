@@ -68,5 +68,5 @@ public class Planet : BaseModel
 	{ }
 
 	/// <summary>Gets the path for the extending the base URL.</summary>
-	protected override string ResourcePath => "planets/";
+	protected override string ResourcePath => EndPoints.cPlanets;
 }

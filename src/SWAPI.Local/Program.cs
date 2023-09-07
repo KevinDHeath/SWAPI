@@ -1,9 +1,11 @@
+using System.ComponentModel;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 namespace SWAPI.Local;
 
 /// <summary>ASP.NET Core Web API for managing SWAPI resources.</summary>
+[EditorBrowsable( EditorBrowsableState.Never )]
 public class Program
 {
 	/// <summary>Main entry point.</summary>
@@ -13,6 +15,7 @@ public class Program
 		var builder = WebApplication.CreateBuilder( args );
 
 		// Add services to the container.
+		_ = builder.Services.AddSingleton<Stores.EndPointsStore>();
 		_ = builder.Services.AddSingleton<Stores.FilmStore>();
 		_ = builder.Services.AddSingleton<Stores.PersonStore>();
 		_ = builder.Services.AddSingleton<Stores.PlanetStore>();

@@ -22,6 +22,7 @@ public class PeopleController : ControllerBase
 	/// <summary>Gets a collection of people.</summary>
 	/// <param name="page">Page number.</param>
 	/// <param name="search">Search pattern.</param>
+	/// <returns>A collection of person details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( typeof( Collection<Person> ), StatusCodes.Status200OK )]
 	public ActionResult<Collection<Person>> Get( [FromQuery] int? page, [FromQuery] string? search )

@@ -88,5 +88,5 @@ public class Starship : BaseModel
 	{ }
 
 	/// <summary>Gets the path for extending the base URL.</summary>
-	protected override string ResourcePath => "starships/";
+	protected override string ResourcePath => EndPoints.cStarships;
 }

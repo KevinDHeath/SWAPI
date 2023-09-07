@@ -22,6 +22,7 @@ public class PlanetsController : ControllerBase
 	/// <summary>Gets a collection of planets.</summary>
 	/// <param name="page">Page number.</param>
 	/// <param name="search">Search pattern.</param>
+	/// <returns>A collection of planet details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( typeof( Collection<Planet> ), StatusCodes.Status200OK )]
 	public ActionResult<Collection<Planet>> Get( [FromQuery] int? page, [FromQuery] string? search )

@@ -22,6 +22,7 @@ public class SpeciesController : ControllerBase
 	/// <summary>Gets a collection of species.</summary>
 	/// <param name="page">Page number.</param>
 	/// <param name="search">Search pattern.</param>
+	/// <returns>A collection of species details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( typeof( Collection<Species> ), StatusCodes.Status200OK )]
 	public ActionResult<Collection<Species>> Get( [FromQuery] int? page, [FromQuery] string? search )
