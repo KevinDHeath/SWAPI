@@ -15,7 +15,7 @@ public class Program
 		var builder = WebApplication.CreateBuilder( args );
 
 		// Add services to the container.
-		_ = builder.Services.AddSingleton<Stores.EndPointsStore>();
+		_ = builder.Services.AddSingleton<Stores.RootStore>();
 		_ = builder.Services.AddSingleton<Stores.FilmStore>();
 		_ = builder.Services.AddSingleton<Stores.PersonStore>();
 		_ = builder.Services.AddSingleton<Stores.PlanetStore>();
