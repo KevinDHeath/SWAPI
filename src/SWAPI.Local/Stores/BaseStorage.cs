@@ -126,31 +126,30 @@ internal abstract class BaseStorage
 		string url ) where T : BaseModel
 	{
 		Collection<T> rtn = new() { Count = results.Count };
+		int start = 0;
+		int end = cPageSize;
+		if( page > 1 )
+		{
+			start = ( page - 1 ) * cPageSize;
+			end = start + cPageSize;
+		}
+
 		if( results.Count > cPageSize )
 		{
-			int start = 0;
-			int end = cPageSize;
-			if( page > 1 )
+			if( page > 1 & start <= results.Count )
 			{
-				start = ( page - 1 ) * cPageSize;
-				end = start + cPageSize;
-				if( start <= results.Count )
-				{
-					rtn.Previous = url + "/?page=" + ( page - 1 ).ToString();
-					if( search.Length > 0 ) { rtn.Previous += $"&search={search}"; }
-				}
+				rtn.Previous = url + "/?page=" + ( page - 1 ).ToString();
+				if( search.Length > 0 ) { rtn.Previous += $"&search={search}"; }
 			}
 			if( end < results.Count )
 			{
 				rtn.Next = url + "/?page=" + ( page + 1 ).ToString();
 				if( search.Length > 0 ) { rtn.Next += $"&search={search}"; }
 			}
-
-			results = results.Take( new Range( start, end ) ).ToList();
 		}
 
-		rtn.Results = results;
-
+		rtn.Results = results.Take( new Range( start, end ) ).ToList();
+		if( rtn.Results.Count == 0 ) { rtn.Count = 0; }
 		return rtn;
 	}
 

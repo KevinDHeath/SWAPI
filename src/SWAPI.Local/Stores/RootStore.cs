@@ -2,17 +2,17 @@
 
 namespace SWAPI.Local.Stores;
 
-internal class EndPointsStore : BaseStorage
+internal class RootStore : BaseStorage
 {
-	private static EndPoints? _endPoints;
+	private static Root? _endPoints;
 	private static readonly object _endPointsLock = new();
 	private static bool _endPointsLoad = false;
 
 	#region Internal Properties
 
-	internal static EndPoints EndPoints
+	internal static Root EndPoints
 	{
-		get => _endPoints is null ? new EndPoints() : _endPoints;
+		get => _endPoints is null ? new Root() : _endPoints;
 		private set => _endPoints = value;
 	}
 
@@ -29,14 +29,14 @@ internal class EndPointsStore : BaseStorage
 
 			// Load endpoints data
 			Monitor.Enter( _endPointsLock, ref _endPointsLoad );
-			_endPoints = new EndPoints
+			_endPoints = new Root
 			{
-				Films = rootUrl + EndPoints.cFilms,
-				People = rootUrl + EndPoints.cPeople,
-				Planets = rootUrl + EndPoints.cPlanets,
-				Species = rootUrl + EndPoints.cSpecies,
-				Starships = rootUrl + EndPoints.cStarships,
-				Vehicles = rootUrl + EndPoints.cVehicles
+				Films = rootUrl + Root.cFilms,
+				People = rootUrl + Root.cPeople,
+				Planets = rootUrl + Root.cPlanets,
+				Species = rootUrl + Root.cSpecies,
+				Starships = rootUrl + Root.cStarships,
+				Vehicles = rootUrl + Root.cVehicles
 			};
 		}
 		catch( Exception ) { }

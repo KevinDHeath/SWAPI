@@ -8,19 +8,19 @@ namespace SWAPI.Local.Controllers;
 [Route( @"api" )]
 [ApiController]
 [Produces( "application/json" )]
-public class EndPointsController : ControllerBase
+public class RootController : ControllerBase
 {
 	/// <summary>Initializes a new instance of the EndPointsController class.</summary>
-	public EndPointsController()
+	public RootController()
 	{ }
 
 	/// <summary>Provides information on all available resources within the API.</summary>
 	/// <returns>The film details.</returns>
 	[HttpGet()]
 	[ProducesResponseType( StatusCodes.Status200OK )]
-	public ActionResult<EndPoints> Get()
+	public ActionResult<Root> Get()
 	{
-		EndPointsStore.Initialize( ControllerContext.HttpContext.Request );
-		return (ActionResult<EndPoints>)Ok( EndPointsStore.EndPoints );
+		RootStore.Initialize( ControllerContext.HttpContext.Request );
+		return (ActionResult<Root>)Ok( RootStore.EndPoints );
 	}
 }

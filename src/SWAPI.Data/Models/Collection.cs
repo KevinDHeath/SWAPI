@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SWAPI.Data.Models;
 
@@ -9,6 +10,7 @@ public class Collection<T> where T : BaseModel
 	#region Public Properties
 
 	/// <summary>Gets or sets the count of the results.</summary>
+	[Required]
 	[JsonPropertyName( "count" )]
 	public int Count { get; set; }
 
@@ -21,6 +23,7 @@ public class Collection<T> where T : BaseModel
 	public string? Previous { get; set; }
 
 	/// <summary>Gets or sets the results downloaded from the data service.</summary>
+	[Required]
 	[JsonPropertyName( "results" )]
 	public ICollection<T>? Results { get; set; }
 

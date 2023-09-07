@@ -1,11 +1,12 @@
 ﻿// Ignore Spelling: Starships
 
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SWAPI.Data.Models;
 
 /// <summary>Provides information on all available resources within the API.</summary>
-public class EndPoints
+public class Root
 {
 	#region Public Constants
 
@@ -32,26 +33,32 @@ public class EndPoints
 	#region Public Properties
 
 	/// <summary>Gets or sets the URL root for Film resources.</summary>
+	[Required]
 	[JsonPropertyName( "films" )]
 	public string? Films { get; set; }
 
 	/// <summary>Gets or sets the URL root for People resources.</summary>
+	[Required]
 	[JsonPropertyName( "people" )]
 	public string? People { get; set; }
 
 	/// <summary>Gets or sets the URL root for Planet resources.</summary>
+	[Required]
 	[JsonPropertyName( "planets" )]
 	public string? Planets { get; set; }
 
 	/// <summary>Gets or sets the URL root for Species resources.</summary>
+	[Required]
 	[JsonPropertyName( "species" )]
 	public string? Species { get; set; }
 
 	/// <summary>Gets or sets the URL root for Starships resources.</summary>
+	[Required]
 	[JsonPropertyName( "starships" )]
 	public string? Starships { get; set; }
 
 	/// <summary>Gets or sets the URL root for Vehicles resources.</summary>
+	[Required]
 	[JsonPropertyName( "vehicles" )]
 	public string? Vehicles { get; set; }
 
