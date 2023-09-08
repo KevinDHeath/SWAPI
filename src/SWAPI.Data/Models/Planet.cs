@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SWAPI.Data.Models;
@@ -76,6 +77,7 @@ public class Planet : BaseModel
 	#endregion
 
 	/// <summary>Initializes a new instance of the Planet class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
 	public Planet()
 	{ }
 

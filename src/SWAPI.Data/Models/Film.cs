@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Starships
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -70,6 +71,7 @@ public class Film : BaseModel
 	#endregion
 
 	/// <summary>Initializes a new instance of the Film class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
 	public Film()
 	{ }
 

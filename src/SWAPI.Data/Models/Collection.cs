@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SWAPI.Data.Models;
@@ -28,4 +29,9 @@ public class Collection<T> where T : BaseModel
 	public ICollection<T>? Results { get; set; }
 
 	#endregion
+
+	/// <summary>Initializes a new instance of the Collection class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
+	public Collection()
+	{ }
 }

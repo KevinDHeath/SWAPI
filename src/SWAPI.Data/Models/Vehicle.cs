@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Atmosphering hyperdrive Repulsorcraft
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -84,6 +85,7 @@ public class Vehicle : BaseModel
 	#endregion
 
 	/// <summary>Initializes a new instance of the Vehicle class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
 	public Vehicle()
 	{ }
 

@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Starships Homeworld Yavin
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -86,6 +87,7 @@ public class Person : BaseModel
 	#endregion
 
 	/// <summary>Initializes a new instance of the Person class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
 	public Person()
 	{ }
 

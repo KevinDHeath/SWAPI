@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Homeworld
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -77,6 +78,7 @@ public class Species : BaseModel
 	#endregion
 
 	/// <summary>Initializes a new instance of the Species class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
 	public Species()
 	{ }
 

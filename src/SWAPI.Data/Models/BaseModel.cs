@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SWAPI.Data.Models;
@@ -30,5 +31,11 @@ public abstract class BaseModel
 
 	/// <summary>Gets the relative path of the resource to the base URL.</summary>
 	/// <returns>The path as a string.</returns>
+	[EditorBrowsable( EditorBrowsableState.Never )]
 	public string GetPath() => ResourcePath;
+
+	/// <summary>Initializes a new instance of the BaseModel class.</summary>
+	[EditorBrowsable( EditorBrowsableState.Never )]
+	public BaseModel()
+	{ }
 }

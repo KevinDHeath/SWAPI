@@ -1,11 +1,13 @@
 ﻿// Ignore Spelling: Starships
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SWAPI.Data.Models;
 
 /// <summary>Provides information on all available resources within the API.</summary>
+[EditorBrowsable( EditorBrowsableState.Never )]
 public class Root
 {
 	#region Public Constants
@@ -63,4 +65,8 @@ public class Root
 	public string? Vehicles { get; set; }
 
 	#endregion
+
+	/// <summary>Initializes a new instance of the Root class.</summary>
+	public Root()
+	{ }
 }
