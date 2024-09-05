@@ -7,10 +7,10 @@
 
   <ItemGroup>
     <!-- These packages have at least one update -->
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />               <!-- 07/2024 -->
-    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="8.0.7" /> <!-- 07/2024 -->
-    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.15" />                         <!-- 06/2024 -->
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.6.2" />                     <!-- 05/2024 -->
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />               <!-- 08/2024 -->
+    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="8.0.8" /> <!-- 08/2024 -->
+    <PackageVersion Include="Microsoft.OpenApi" Version="1.6.18" />                         <!-- 08/2024 -->
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.7.3" />                     <!-- 08/2024 -->
   </ItemGroup>
 
 </Project>
