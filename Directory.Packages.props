@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
     <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="8.0.10" />
     <PackageVersion Include="Microsoft.OpenApi" Version="1.6.22" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.8.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
 </Project>
